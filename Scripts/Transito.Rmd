@@ -1,0 +1,27 @@
+---
+title: "Transito"
+output: html_notebook
+---
+
+En este cuaderno se analizan datos de tránsito de Bogotá, tales como:
+
+* GTFS (General Transport Feed Specification) estático (2021-07): https://datos.movilidadbogota.gov.co/datasets/gtfs-est%C3%A1tico-2021-07-14/about
+
+
+
+```{setup}}
+
+pacman::p_load("here","tidyverse","lubridate")
+
+knitr::opts_chunk$set(include = FALSE, echo = FALSE, warning = FALSE, message = FALSE, fig.align="center", fig.showtext = TRUE, fig.retina = 1, dpi = 300, out.width = "80%")
+
+
+```
+
+
+```{read}
+
+
+
+```
+
