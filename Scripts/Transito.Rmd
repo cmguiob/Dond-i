@@ -9,7 +9,7 @@ En este cuaderno se analizan datos de tránsito de Bogotá, tales como:
 
 
 
-```{setup}}
+```{r, setup}
 
 pacman::p_load("here","tidyverse","lubridate")
 
@@ -19,9 +19,59 @@ knitr::opts_chunk$set(include = FALSE, echo = FALSE, warning = FALSE, message = 
 ```
 
 
-```{read}
+```{r, read}
+
+#Cargar datos 
+
+temp <- tempfile() #Crear objetos temporales
+tempd <- tempdir()
+
+urls <- list()
+
+urls$GTFS <- "https://github.com/cmguiob/Dond-i/raw/main/Data/Transit/GTFS-2021-07-14.zip"
+
+for (i in 1:length(urls)){
+  download.file(urls[[i]],temp, mode="wb")
+  unzip(temp, exdir=tempd) #Descomprimir
+}
+
+files_names <- list.files(tempd, pattern = ".txt") #Leer nombres de archivos
+files_paths <- paste(file.path(tempd), files_names[], sep = "\\") #Crear rutas
+
+# Crear dfs 
+trips <- files_paths %>% .[str_detect(.,"trips")] %>% read_delim(delim = ",")
+stops <- files_paths %>% .[str_detect(.,"stops")] %>% read_delim(delim = ",")
+stop_times <- files_paths %>% .[str_detect(.,"stop_times")] %>% read_delim(delim = ",")
+routes <- files_paths %>% .[str_detect(., "routes")] %>% read_delim(delim = ",")
+
+GTFS_tm <- routes %>%
+           full_join(trips, by = "route_id") %>%
+           full_join(stop_times, by = "trip_id") %>%
+           full_join(stops, by = "stop_id") %>%
+           select(route_id, route_long_name, service_id, trip_id, arrival_time, departure_time, stop_id, stop_sequence, stop_name, stop_lat, stop_lon, stop_desc)
+
+```
+
+
+Plot a route
+
+```{r}
 
 
 
 ```
+
+On democratization: how many trips are there at each stop by hour? (facet plot by hour)
+
+```{r}
+
+```
+
+On efficiency: which routes have the lowest average time/distance ratio?
+
+```{r}
+
+```
+
+On dynamics: which routes are the most active on saturdays?
 

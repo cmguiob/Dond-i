@@ -219,19 +219,23 @@ pre code {
 <ul>
 <li>GTFS (General Transport Feed Specification) estático (2021-07): <a href="https://datos.movilidadbogota.gov.co/datasets/gtfs-est%C3%A1tico-2021-07-14/about" class="uri">https://datos.movilidadbogota.gov.co/datasets/gtfs-est%C3%A1tico-2021-07-14/about</a></li>
 </ul>
-<pre class="{setup}}"><code>
-pacman::p_load(&quot;here&quot;,&quot;tidyverse&quot;,&quot;lubridate&quot;)
-
-knitr::opts_chunk$set(include = FALSE, echo = FALSE, warning = FALSE, message = FALSE, fig.align=&quot;center&quot;, fig.showtext = TRUE, fig.retina = 1, dpi = 300, out.width = &quot;80%&quot;)
-
-</code></pre>
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<p>Plot a route</p>
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<p>On democratization: how many trips are there at each stop by hour? (facet plot by hour)</p>
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<p>On efficiency: which routes have the lowest average time/distance ratio?</p>
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<p>On dynamics: which routes are the most active on saturdays?</p>
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRyYW5zaXRvIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KRW4gZXN0ZSBjdWFkZXJubyBzZSBhbmFsaXphbiBkYXRvcyBkZSB0csOhbnNpdG8gZGUgQm9nb3TDoSwgdGFsZXMgY29tbzoNCg0KKiBHVEZTIChHZW5lcmFsIFRyYW5zcG9ydCBGZWVkIFNwZWNpZmljYXRpb24pIGVzdMOhdGljbyAoMjAyMS0wNyk6IGh0dHBzOi8vZGF0b3MubW92aWxpZGFkYm9nb3RhLmdvdi5jby9kYXRhc2V0cy9ndGZzLWVzdCVDMyVBMXRpY28tMjAyMS0wNy0xNC9hYm91dA0KDQoNCg0KYGBge3NldHVwfX0NCg0KcGFjbWFuOjpwX2xvYWQoImhlcmUiLCJ0aWR5dmVyc2UiLCJsdWJyaWRhdGUiKQ0KDQprbml0cjo6b3B0c19jaHVuayRzZXQoaW5jbHVkZSA9IEZBTFNFLCBlY2hvID0gRkFMU0UsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLCBmaWcuYWxpZ249ImNlbnRlciIsIGZpZy5zaG93dGV4dCA9IFRSVUUsIGZpZy5yZXRpbmEgPSAxLCBkcGkgPSAzMDAsIG91dC53aWR0aCA9ICI4MCUiKQ0KDQoNCmBgYA0KDQoNCmBgYHtyZWFkfQ0KDQoNCg0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlRyYW5zaXRvIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KRW4gZXN0ZSBjdWFkZXJubyBzZSBhbmFsaXphbiBkYXRvcyBkZSB0csOhbnNpdG8gZGUgQm9nb3TDoSwgdGFsZXMgY29tbzoNCg0KKiBHVEZTIChHZW5lcmFsIFRyYW5zcG9ydCBGZWVkIFNwZWNpZmljYXRpb24pIGVzdMOhdGljbyAoMjAyMS0wNyk6IGh0dHBzOi8vZGF0b3MubW92aWxpZGFkYm9nb3RhLmdvdi5jby9kYXRhc2V0cy9ndGZzLWVzdCVDMyVBMXRpY28tMjAyMS0wNy0xNC9hYm91dA0KDQoNCg0KYGBge3IsIHNldHVwfQ0KDQpwYWNtYW46OnBfbG9hZCgiaGVyZSIsInRpZHl2ZXJzZSIsImx1YnJpZGF0ZSIpDQoNCmtuaXRyOjpvcHRzX2NodW5rJHNldChpbmNsdWRlID0gRkFMU0UsIGVjaG8gPSBGQUxTRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsIGZpZy5hbGlnbj0iY2VudGVyIiwgZmlnLnNob3d0ZXh0ID0gVFJVRSwgZmlnLnJldGluYSA9IDEsIGRwaSA9IDMwMCwgb3V0LndpZHRoID0gIjgwJSIpDQoNCg0KYGBgDQoNCg0KYGBge3IsIHJlYWR9DQoNCiNDYXJnYXIgZGF0b3MgDQoNCnRlbXAgPC0gdGVtcGZpbGUoKSAjQ3JlYXIgb2JqZXRvcyB0ZW1wb3JhbGVzDQp0ZW1wZCA8LSB0ZW1wZGlyKCkNCg0KdXJscyA8LSBsaXN0KCkNCg0KdXJscyRHVEZTIDwtICJodHRwczovL2dpdGh1Yi5jb20vY21ndWlvYi9Eb25kLWkvcmF3L21haW4vRGF0YS9UcmFuc2l0L0dURlMtMjAyMS0wNy0xNC56aXAiDQoNCmZvciAoaSBpbiAxOmxlbmd0aCh1cmxzKSl7DQogIGRvd25sb2FkLmZpbGUodXJsc1tbaV1dLHRlbXAsIG1vZGU9IndiIikNCiAgdW56aXAodGVtcCwgZXhkaXI9dGVtcGQpICNEZXNjb21wcmltaXINCn0NCg0KZmlsZXNfbmFtZXMgPC0gbGlzdC5maWxlcyh0ZW1wZCwgcGF0dGVybiA9ICIudHh0IikgI0xlZXIgbm9tYnJlcyBkZSBhcmNoaXZvcw0KZmlsZXNfcGF0aHMgPC0gcGFzdGUoZmlsZS5wYXRoKHRlbXBkKSwgZmlsZXNfbmFtZXNbXSwgc2VwID0gIlxcIikgI0NyZWFyIHJ1dGFzDQoNCiMgQ3JlYXIgZGZzIA0KdHJpcHMgPC0gZmlsZXNfcGF0aHMgJT4lIC5bc3RyX2RldGVjdCguLCJ0cmlwcyIpXSAlPiUgcmVhZF9kZWxpbShkZWxpbSA9ICIsIikNCnN0b3BzIDwtIGZpbGVzX3BhdGhzICU+JSAuW3N0cl9kZXRlY3QoLiwic3RvcHMiKV0gJT4lIHJlYWRfZGVsaW0oZGVsaW0gPSAiLCIpDQpzdG9wX3RpbWVzIDwtIGZpbGVzX3BhdGhzICU+JSAuW3N0cl9kZXRlY3QoLiwic3RvcF90aW1lcyIpXSAlPiUgcmVhZF9kZWxpbShkZWxpbSA9ICIsIikNCnJvdXRlcyA8LSBmaWxlc19wYXRocyAlPiUgLltzdHJfZGV0ZWN0KC4sICJyb3V0ZXMiKV0gJT4lIHJlYWRfZGVsaW0oZGVsaW0gPSAiLCIpDQoNCkdURlNfdG0gPC0gcm91dGVzICU+JQ0KICAgICAgICAgICBmdWxsX2pvaW4odHJpcHMsIGJ5ID0gInJvdXRlX2lkIikgJT4lDQogICAgICAgICAgIGZ1bGxfam9pbihzdG9wX3RpbWVzLCBieSA9ICJ0cmlwX2lkIikgJT4lDQogICAgICAgICAgIGZ1bGxfam9pbihzdG9wcywgYnkgPSAic3RvcF9pZCIpICU+JQ0KICAgICAgICAgICBzZWxlY3Qocm91dGVfaWQsIHJvdXRlX2xvbmdfbmFtZSwgc2VydmljZV9pZCwgdHJpcF9pZCwgYXJyaXZhbF90aW1lLCBkZXBhcnR1cmVfdGltZSwgc3RvcF9pZCwgc3RvcF9zZXF1ZW5jZSwgc3RvcF9uYW1lLCBzdG9wX2xhdCwgc3RvcF9sb24sIHN0b3BfZGVzYykNCg0KYGBgDQoNCg0KUGxvdCBhIHJvdXRlDQoNCmBgYHtyfQ0KDQoNCg0KYGBgDQoNCk9uIGRlbW9jcmF0aXphdGlvbjogaG93IG1hbnkgdHJpcHMgYXJlIHRoZXJlIGF0IGVhY2ggc3RvcCBieSBob3VyPyAoZmFjZXQgcGxvdCBieSBob3VyKQ0KDQpgYGB7cn0NCg0KYGBgDQoNCk9uIGVmZmljaWVuY3k6IHdoaWNoIHJvdXRlcyBoYXZlIHRoZSBsb3dlc3QgYXZlcmFnZSB0aW1lL2Rpc3RhbmNlIHJhdGlvPw0KDQpgYGB7cn0NCg0KYGBgDQoNCk9uIGR5bmFtaWNzOiB3aGljaCByb3V0ZXMgYXJlIHRoZSBtb3N0IGFjdGl2ZSBvbiBzYXR1cmRheXM/DQoNCg==</div>
 
 
 
